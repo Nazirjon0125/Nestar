@@ -119,9 +119,11 @@ export class MemberService {
 				{ $sort: sort },
 				{
 					$facet: {
-						list: [{ $skip: (input.page - 1) * input.limit },
-							 { $limit: input.limit },
-							lookupAuthMemberLiked(memberId, "$_id")],
+						list: [
+							{ $skip: (input.page - 1) * input.limit },
+							{ $limit: input.limit },
+							lookupAuthMemberLiked(memberId, '$_id'),
+						],
 						metaCounter: [{ $count: 'total' }],
 					},
 				},
@@ -182,8 +184,6 @@ export class MemberService {
 
 		return result;
 	}
-
-	
 
 	public async memberStatsEditor(input: StatisticModifier): Promise<Member> {
 		const { _id, targetKey, modifier } = input;
